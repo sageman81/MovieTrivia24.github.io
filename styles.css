@@ -1,0 +1,120 @@
+/* General body styles */
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: url('https://cdn.pixabay.com/photo/2017/09/04/09/37/cinema-strip-2713352_1280.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+/* Start screen styling */
+.start-screen {
+    color: goldenrod;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.start-screen h1 {
+    font-size: 6vw; /* Adjust font size for smaller screens */
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    -webkit-text-stroke: 1px black;
+}
+
+.start-screen p {
+    margin: 10px 0;
+    font-size: 3vw; /* Adjust font size for smaller screens */
+    -webkit-text-stroke: 1px black;
+}
+
+/* Button styles */
+#startButton {
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 2vw; /* Adjust font size for smaller screens */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+#startButton:hover {
+    background-color: #e63900;
+}
+
+/* Trivia section styling */
+#trivia {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: goldenrod;
+    text-align: center;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+    .start-screen h1 {
+        font-size: 8vw; /* Adjust font size for smaller screens */
+    }
+
+    .start-screen p {
+        font-size: 4vw; /* Adjust font size for smaller screens */
+    }
+
+    #startButton {
+        font-size: 3vw; /* Adjust font size for smaller screens */
+    }
+
+    .button-grid {
+        grid-template-columns: repeat(1, 80%);
+    }
+
+    .points-counter, .timer-display {
+        font-size: 3.5vw; /* Adjust font size for smaller screens */
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #question {
+        font-size: 5vw; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Additional specific styles for elements */
+.timer-display, .points-counter {
+    font-size: 2vw; /* Adjust font size for smaller screens */
+    background-color: blue;
+    color: goldenrod;
+    padding: 20px;
+    border: solid 5px goldenrod;
+    margin-top: 10px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#questionImage {
+    max-width: 90%; /* Adjust image width for smaller screens */
+    max-height: 370px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 48%);
+    grid-template-rows: auto auto;
+    gap: 10px;
+    justify-content: center;
+}
