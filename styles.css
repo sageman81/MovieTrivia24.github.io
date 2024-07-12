@@ -3,14 +3,14 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    font-family: Arial, sans-serif;
-    background: url('https://cdn.pixabay.com/photo/2017/09/04/09/37/cinema-strip-2713352_1280.jpg') no-repeat center center;
+    font-family: 'Arial', sans-serif;
+    background: url('https://cdn.pixabay.com/photo/2017/09/04/09/37/cinema-strip-2713352_1280.jpg') no-repeat center center fixed;
     background-size: cover;
+    color: #FFD700; /* Consistent color for text */
 }
 
 /* Start screen styling */
 .start-screen {
-    color: goldenrod;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -19,33 +19,33 @@ body {
     height: 100vh;
 }
 
-.start-screen h1 {
-    font-size: 6vw; /* Adjust font size for smaller screens */
-    margin: 0;
-    padding: 0;
+.start-screen h1, .start-screen p {
+    margin: 10px 0;
     line-height: 1.2;
-    -webkit-text-stroke: 1px black;
+    text-shadow: 1px 1px 2px black; /* Improved text readability */
+}
+
+.start-screen h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem); /* Fluid font size */
 }
 
 .start-screen p {
-    margin: 10px 0;
-    font-size: 3vw; /* Adjust font size for smaller screens */
-    -webkit-text-stroke: 1px black;
+    font-size: clamp(0.8rem, 3vw, 1.25rem); /* Fluid font size */
 }
 
 /* Button styles */
-#startButton {
+button {
     background-color: #ff4500;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 2vw; /* Adjust font size for smaller screens */
+    padding: 12px 24px;
+    font-size: clamp(0.8rem, 2.5vw, 1.2rem); /* Fluid font size */
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: background-color 0.3s ease;
 }
 
-#startButton:hover {
+button:hover {
     background-color: #e63900;
 }
 
@@ -56,65 +56,39 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
-    color: goldenrod;
-    text-align: center;
 }
 
-/* Responsive design adjustments */
-@media (max-width: 600px) {
-    .start-screen h1 {
-        font-size: 8vw; /* Adjust font size for smaller screens */
-    }
-
-    .start-screen p {
-        font-size: 4vw; /* Adjust font size for smaller screens */
-    }
-
-    #startButton {
-        font-size: 3vw; /* Adjust font size for smaller screens */
-    }
-
-    .button-grid {
-        grid-template-columns: repeat(1, 80%);
-    }
-
-    .points-counter, .timer-display {
-        font-size: 3.5vw; /* Adjust font size for smaller screens */
-        padding: 10px;
-        margin: 10px;
-    }
-
-    #question {
-        font-size: 5vw; /* Adjust font size for smaller screens */
-    }
-}
-
-/* Additional specific styles for elements */
 .timer-display, .points-counter {
-    font-size: 2vw; /* Adjust font size for smaller screens */
-    background-color: blue;
-    color: goldenrod;
-    padding: 20px;
-    border: solid 5px goldenrod;
-    margin-top: 10px;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #4747d9; /* Navy background */
+    color: #FFD700;
+    padding: 10px 20px; /* Adjust padding to ensure text fits nicely */
+    border-radius: 5px;
+    font-size: clamp(0.75rem, 2vw, 1rem); /* Fluid font size */
+    margin: 5px auto; /* Centering these elements */
+    width: fit-content; /* Only as wide as the content requires */
+    border: 2px solid #FFD700; /* Adding a subtle border */
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adding a slight shadow for better visibility */
 }
 
 #questionImage {
-    max-width: 90%; /* Adjust image width for smaller screens */
-    max-height: 370px;
+    max-width: 90%;
+    max-height: 40vh; /* Responsive height */
     width: auto;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
+    margin: 20px 0;
 }
 
+/* Button grid adjustment */
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(2, 48%);
-    grid-template-rows: auto auto;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 10px;
-    justify-content: center;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+    #question {
+        font-size: clamp(1rem, 5vw, 1.5rem); /* Larger, more readable font size */
+    }
 }

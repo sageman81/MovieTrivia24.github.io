@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const startButton = document.getElementById('startButton');
     const gameContainer = document.getElementById('trivia'); // Corrected typo
