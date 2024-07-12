@@ -120,9 +120,6 @@ body {
 } 
 
 
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const startButton = document.getElementById('startButton');
     const gameContainer = document.getElementById('trivia'); // Corrected typo
@@ -177,6 +174,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 correctAnswer: "O.J. Simpson",
                 image: "https://images.squarespace-cdn.com/content/v1/59e512ddf43b55c29c71b996/3f10e1fc-e608-49af-86ce-b86d7ccadf73/TERMSE_SIDEA-22.jpg?format=1500w"
         
+            },
+            {
+                question: "What phrase does RoboCop frequently say after apprehending a suspect?",
+                answers: ["You have the right to remain silent.", "Hasta la vista, baby.", "I'll be back.", "Dead or alive, you're coming with me."],
+                correctAnswer: "Dead or alive, you're coming with me.",
+                image: "https://miro.medium.com/v2/resize:fit:996/1*vEEVsy9MyqiuGoZpVhveqw.jpeg"
+            },
+
+            {
+                question: "What is the name of the resistance leader fighting against the Mars administration in 'Total Recall'?",
+                answers: ["Cohaagen", "Kuato", "Richter", "Melnik"],
+                correctAnswer: "Kuato",
+                image: "https://images.squarespace-cdn.com/content/v1/576a19ba46c3c4a46ff5bb79/df4ff442-072f-46e6-96e5-0140f0c31da4/Kuato.jpg"
+            },
+
+            {
+                question: "In which city does Blade Runner take place?",
+                answers: ["Los Angeles", "New York", "Tokyo", "Kyoto"],
+                correctAnswer: "Los Angeles",
+                image: "https://flicknerd.com/wp-content/uploads/2023/10/mv5bmtc1nda0mdu5of5bml5banbnxkftztcwotq3ndu4mw4040._v1_.jpg?w=1000&h=700&crop=1"
+            },
+
+
+            {
+                question: "What is the name of Superman’s biological father?",
+                answers: ["Zod", "Jor-El", "Kal-El", "Non"],
+                correctAnswer: "Jor-El",
+                image: "https://comiczombie.net/wp-content/uploads/2015/10/superman-the-movie-1978-marlon-brando-as-jor-el-sentences-general-zod-non-and-ursa.jpg"
+            },
+
+
+            {
+                question: "Who composed the iconic score for the 1989 'Batman' movie?",
+                answers: ["John Williams", "Hans Zimmer", "Danny Elfman", "James Horner"],
+                correctAnswer: "Danny Elfman",
+                image: "https://i.ytimg.com/vi/t2CjYRuSB3U/sddefault.jpg"
             }
 
 
@@ -193,31 +226,64 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePointsDisplay();
     }
 
+    // function setQuestion() {
+    //     resetState(); // Reset game state, including clearing the timer and setting `hasAnswered` to false.
+    //     let currentQuestion = questions[currentQuestionIndex];
+    //     questionEl.textContent = currentQuestion.question;
+    //     questionImage.src = currentQuestion.image;
+    
+    //     answerButtons.forEach((button, index) => {
+    //         button.classList.remove('hide'); // Ensure all buttons are visible.
+    //         if (index < currentQuestion.answers.length) {
+    //             button.textContent = currentQuestion.answers[index];
+    //             button.disabled = false; // Re-enable the button for the new question.
+    //             button.onclick = () => {
+    //                 if (!hasAnswered) {
+    //                     selectAnswer(currentQuestion.answers[index], currentQuestion.correctAnswer);
+    //                     hasAnswered = true; // Prevent further answers until the next question.
+    //                     answerButtons.forEach(btn => btn.disabled = true); // Disable further clicks.
+    //                 }
+    //             };
+    //         } else {
+    //             button.classList.add('hide'); // Hide extra buttons if not needed.
+    //         }
+    //     });
     function setQuestion() {
-        resetState(); // Reset game state, including clearing the timer and setting `hasAnswered` to false.
+        resetState();
         let currentQuestion = questions[currentQuestionIndex];
         questionEl.textContent = currentQuestion.question;
         questionImage.src = currentQuestion.image;
     
         answerButtons.forEach((button, index) => {
-            button.classList.remove('hide'); // Ensure all buttons are visible.
+            button.classList.remove('hide');
+            button.disabled = false;
+    
+            // Remove any previous event listeners
+            button.removeEventListener('click', handleAnswerClick);
+    
             if (index < currentQuestion.answers.length) {
                 button.textContent = currentQuestion.answers[index];
-                button.disabled = false; // Re-enable the button for the new question.
-                button.onclick = () => {
-                    if (!hasAnswered) {
-                        selectAnswer(currentQuestion.answers[index], currentQuestion.correctAnswer);
-                        hasAnswered = true; // Prevent further answers until the next question.
-                        answerButtons.forEach(btn => btn.disabled = true); // Disable further clicks.
-                    }
-                };
+                // Add new event listener
+                button.addEventListener('click', () => handleAnswerClick(currentQuestion.answers[index], currentQuestion.correctAnswer));
             } else {
-                button.classList.add('hide'); // Hide extra buttons if not needed.
+                button.classList.add('hide');
             }
         });
-        startTimer(); // Start the countdown for the new question.
+    }
+
+
+    
+    
+    function handleAnswerClick(selectedAnswer, correctAnswer) {
+        if (!hasAnswered) {
+            selectAnswer(selectedAnswer, correctAnswer);
+            hasAnswered = true;
+            answerButtons.forEach(btn => btn.disabled = true);
+        }
     }
     
+
+
 
     function showQuestion(question) {
         questionEl.textContent = question.question;
@@ -234,24 +300,37 @@ document.addEventListener('DOMContentLoaded', function() {
         startTimer();
     }
 
-    function resetState() {
-        clearInterval(timer);
-        feedbackEl.textContent = '';
-        hasAnswered = false; // Allow answering for the new question.
-        timeLeft = 30;
-        updateTimerDisplay();
-        // No need to disable buttons here; they will be re-enabled in setQuestion.
+    // function resetState() {
+    //     clearInterval(timer);
+    //     feedbackEl.textContent = '';
+    //     hasAnswered = false; // Allow answering for the new question.
+    //     timeLeft = 30;
+    //     updateTimerDisplay();
+    //     // No need to disable buttons here; they will be re-enabled in setQuestion.
+    // }
+    
+
+    // function selectAnswer(selectedAnswer, correctAnswer) {
+    //     let isCorrect = selectedAnswer === correctAnswer;
+    //     points += isCorrect ? 1 : Math.max(0, points - 1); // Update points correctly
+    //     feedbackEl.textContent = isCorrect ? "Correct! Your points: " + points : "Incorrect! You lost a point! Your points: " + points;
+    //     updatePointsDisplay();
+    //     setTimeout(moveToNextQuestion, 2000); // Wait 2 seconds before moving to the next question
+    // }
+    function selectAnswer(selectedAnswer, correctAnswer) {
+        console.log(`Current Points Before: ${points}`);
+        let isCorrect = selectedAnswer === correctAnswer;
+        points += isCorrect ? 1 : Math.max(0, points - 1);
+        console.log(`Current Points After: ${points}`);
+    
+        feedbackEl.textContent = isCorrect ? "Correct! Your points: " + points : "Incorrect! You lost a point! Your points: " + points;
+        updatePointsDisplay();
+        setTimeout(moveToNextQuestion, 2000);
     }
     
 
-    function selectAnswer(selectedAnswer, correctAnswer) {
-        let isCorrect = selectedAnswer === correctAnswer;
-        points += isCorrect ? 1 : Math.max(0, points - 1); // Update points correctly
-        feedbackEl.textContent = isCorrect ? "Correct! Your points: " + points : "Incorrect! You lost a point! Your points: " + points;
-        updatePointsDisplay();
-        setTimeout(moveToNextQuestion, 2000); // Wait 2 seconds before moving to the next question
-    }
-    
+
+
 
     function moveToNextQuestion() {
         currentQuestionIndex++;
@@ -305,7 +384,33 @@ document.addEventListener('DOMContentLoaded', function() {
         return questions.reduce((acc, question) => acc + (question.userAnswer === question.correctAnswer ? 1 : 0), 0);
     }
    
+ // Restart Game Function
+ function restartGame() {
+    points = 0;
+    currentQuestionIndex = 0;
+    hasAnswered = false;
 
+    // Reset UI components
+    document.getElementById('pointsCounter').textContent = 'Points: 0';
+    document.getElementById('timerDisplay').textContent = '30s'; // Reset timer display
+    document.getElementById('feedback').textContent = ''; // Clear feedback
+    document.getElementById('questionImage').src = ''; // Clear question image
+    document.getElementById('question').textContent = ''; // Clear question text
+
+    // Hide the summary screen and reset answer buttons
+    document.querySelectorAll('.answer').forEach(button => {
+        button.disabled = false; // Re-enable buttons
+        button.classList.remove('hide'); // Make sure to show all answer buttons
+        button.textContent = ''; // Clear button text
+    });
+
+    //Hide end screen
+    document.getElementById('summaryScreen').style.display = 'none';
+
+    // Display the start screen again
+    gameContainer.style.display = 'none';
+    startScreen.style.display = 'flex';
+}
     
 
     startButton.addEventListener('click', startGame);
