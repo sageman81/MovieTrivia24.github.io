@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const startButton = document.getElementById('startButton');
     const gameContainer = document.getElementById('trivia'); // Corrected typo
@@ -9,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const feedbackEl = document.getElementById('feedback');
     const timerDisplay = document.getElementById('timerDisplay');
     const questionImage = document.getElementById('questionImage');
+    const restartButton = document.getElementById('restartButton');
 
     let points = 0;
     let timer;
@@ -159,12 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
         pointsEl.textContent = 'Points: ' + points;
     }
 
-    // function endGame() {
-    //     alert("Quiz complete! Total Score: " + points);
-    //     startScreen.style.display = 'flex';
-    //     gameContainer.style.display = 'none';
-    //     // Reset game to start or display a final screen
-    // }
 
     function endGame() {
         document.getElementById('trivia').style.display = 'none'; // Hide the trivia section
@@ -182,10 +176,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function calculateCorrectAnswers() {
-        // Assume you have a way to count correct answers, adjust as necessary
+        
         return questions.reduce((acc, question) => acc + (question.userAnswer === question.correctAnswer ? 1 : 0), 0);
     }
+   
+ // Restart Game Function
+ function restartGame() {
+    points = 0;
+    currentQuestionIndex = 0;
+    hasAnswered = false;
+
+    // Reset UI components
+    document.getElementById('pointsCounter').textContent = 'Points: 0';
+    document.getElementById('timerDisplay').textContent = '30s'; // Reset timer display
+    document.getElementById('feedback').textContent = ''; // Clear feedback
+    document.getElementById('questionImage').src = ''; // Clear question image
+    document.getElementById('question').textContent = ''; // Clear question text
+
+    // Hide the summary screen and reset answer buttons
+    document.querySelectorAll('.answer').forEach(button => {
+        button.disabled = false; // Re-enable buttons
+        button.classList.remove('hide'); // Make sure to show all answer buttons
+        button.textContent = ''; // Clear button text
+    });
+
+    //Hide end screen
+    document.getElementById('summaryScreen').style.display = 'none';
+
+    // Display the start screen again
+    gameContainer.style.display = 'none';
+    startScreen.style.display = 'flex';
+}
     
 
     startButton.addEventListener('click', startGame);
+    restartButton.addEventListener('click', restartGame);
 });
+
