@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 image: "https://images.squarespace-cdn.com/content/v1/59e512ddf43b55c29c71b996/3f10e1fc-e608-49af-86ce-b86d7ccadf73/TERMSE_SIDEA-22.jpg?format=1500w"
         
             }
+
+
         ];
     
    
@@ -157,12 +159,33 @@ document.addEventListener('DOMContentLoaded', function() {
         pointsEl.textContent = 'Points: ' + points;
     }
 
+    // function endGame() {
+    //     alert("Quiz complete! Total Score: " + points);
+    //     startScreen.style.display = 'flex';
+    //     gameContainer.style.display = 'none';
+    //     // Reset game to start or display a final screen
+    // }
+
     function endGame() {
-        alert("Quiz complete! Total Score: " + points);
-        startScreen.style.display = 'flex';
-        gameContainer.style.display = 'none';
-        // Reset game to start or display a final screen
+        document.getElementById('trivia').style.display = 'none'; // Hide the trivia section
+        document.getElementById('summaryScreen').style.display = 'flex'; // Show the summary screen
+    
+        let finalScore = document.getElementById('finalScore');
+        finalScore.textContent = 'Your final score: ' + points;
+    
+        let correctAnswers = document.getElementById('correctAnswers');
+        correctAnswers.textContent = 'Correct answers: ' + calculateCorrectAnswers();
+    
+        document.getElementById('restartButton').addEventListener('click', function() {
+            location.reload(); // Reloads the page to restart the game
+        });
     }
+    
+    function calculateCorrectAnswers() {
+        // Assume you have a way to count correct answers, adjust as necessary
+        return questions.reduce((acc, question) => acc + (question.userAnswer === question.correctAnswer ? 1 : 0), 0);
+    }
+    
 
     startButton.addEventListener('click', startGame);
 });

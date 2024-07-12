@@ -79,6 +79,39 @@ button:hover {
     margin: 20px 0;
 }
 
+.summary-screen {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#finalScore, #correctAnswers {
+    font-size: 2rem;
+    margin: 10px;
+}
+
+#restartButton {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+
 /* Button grid adjustment */
 .button-grid {
     display: grid;
